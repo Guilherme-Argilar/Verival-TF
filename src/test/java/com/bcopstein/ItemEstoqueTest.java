@@ -16,13 +16,18 @@ import org.junit.jupiter.api.Assertions;
 
 public class ItemEstoqueTest{
     
-    @Test
-    public void entradaQuantidade(){
-        ItemEstoque it= new ItemEstoque(10,5);
-        it.entrada(10);
-        int esperado= 15;
+    @ParameterizedTest  
+    @CsvSource({
+        "10,5,3,8",
+        "10,80,50,130",
+        "10,9,9,18"
+          
+    })
+    public void entradaQuantidade(int a,int b,int c, int res){
+        ItemEstoque it= new ItemEstoque(a,b);
+        it.entrada(c);
         int atual = it.getQuantidade();
-        Assertions.assertEquals(esperado, atual);
+        Assertions.assertEquals(res, atual);
     }
 
     @Test
@@ -34,13 +39,18 @@ public class ItemEstoqueTest{
         });
     }
 
-    @Test
-    public void saidaQuantidade(){
-        ItemEstoque it= new ItemEstoque(10,5);
-        it.saida(3);
-        int esperado= 2;
+    @ParameterizedTest  
+    @CsvSource({
+        "10,5,3,2",
+        "10,80,50,30",
+        "10,9,9,0"
+          
+    })
+    public void saidaQuantidade(int a,int b,int c, int res){
+        ItemEstoque it= new ItemEstoque(a,b);
+        it.saida(c);
         int atual = it.getQuantidade();
-        Assertions.assertEquals(esperado, atual);
+        Assertions.assertEquals(res, atual);
 
     }
 

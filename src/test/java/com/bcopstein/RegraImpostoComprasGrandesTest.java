@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Assertions;
 public class RegraImpostoComprasGrandesTest{
     
     @Test
-    public void verificacalcular(){
+    public void verificacalcularQuatroItens(){
 
         List<ItemVenda> itens = new ArrayList<>(4);
         itens.add(new ItemVenda(1,10,1,1000));
@@ -29,6 +29,22 @@ public class RegraImpostoComprasGrandesTest{
         RegraImposto rg= new RegraImpostoComprasGrandes();
         double atual =rg.calcular(itens);
         double esperado= 50+200+150+300;
+        Assertions.assertEquals(esperado,atual);
+
+    }
+
+    @Test
+    public void verificacalcularDoisItens(){
+
+        List<ItemVenda> itens = new ArrayList<>(2);
+        itens.add(new ItemVenda(1,10,2,1000));
+        itens.add(new ItemVenda(2,30,4,2000));
+
+        
+
+        RegraImposto rg= new RegraImpostoComprasGrandes();
+        double atual =rg.calcular(itens);
+        double esperado= 100+200;
         Assertions.assertEquals(esperado,atual);
 
     }

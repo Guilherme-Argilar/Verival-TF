@@ -1,4 +1,7 @@
 com\bcopstein\ItemEstoqueTest.class
+com\bcopstein\FactoryValidacaoTest.class
+com\bcopstein\RegraImpostoOrginalTest.class
 com\bcopstein\ValidacaoHorarioComercialTest.class
 com\bcopstein\RegraImpostoComprasGrandesTest.class
-com\bcopstein\RegraImpostoOrginalTest.class
+com\bcopstein\ServicoDeVendasTest.class
+com\bcopstein\ValidacaoForaHorarioComercialTest.class

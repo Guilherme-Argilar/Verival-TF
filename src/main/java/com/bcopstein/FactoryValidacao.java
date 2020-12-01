@@ -11,8 +11,8 @@ public class FactoryValidacao {
     }
 
     public RegraValidacao getRegraValidacao(){
-        if (LocalTime.parse("08:00").isAfter(agora) &&
-            LocalTime.parse("06:00").isBefore(agora)){
+        if (LocalTime.parse("08:00").isBefore(agora) &&
+            LocalTime.parse("18:00").isAfter(agora)){
                 return new ValidacaoHorarioComercial();
         }else{
             return new ValidacaoForaHorarioComercial();

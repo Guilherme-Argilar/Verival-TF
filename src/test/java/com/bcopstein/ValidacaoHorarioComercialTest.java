@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 public class ValidacaoHorarioComercialTest {
     @Test
@@ -29,5 +30,51 @@ public class ValidacaoHorarioComercialTest {
 
         RegraValidacao regra = new ValidacaoHorarioComercial();
         assertDoesNotThrow(()->regra.valida(produtos,estoque,itens));
+    }
+
+    @Test
+    public void validaItemEstoqueInvalido() {
+        Produtos produtos = mock(Produtos.class);
+        when(produtos.recupera(10)).thenReturn(new Produto(10,"Prod10",1000.0));
+        when(produtos.recupera(30)).thenReturn(new Produto(30,"Prod30",1000.0));
+        when(produtos.recupera(50)).thenReturn(new Produto(50,"Prod15",1500.0));
+
+        Estoque estoque = mock(Estoque.class);
+        when(estoque.recupera(10)).thenReturn(new ItemEstoque(10,5));
+        when(estoque.recupera(30)).thenReturn(new ItemEstoque(30,3));
+        when(estoque.recupera(50)).thenReturn(null);
+
+        List<ItemVenda> itens = new ArrayList<>(3);
+        itens.add(new ItemVenda(1,10,2,1000));
+        itens.add(new ItemVenda(2,30,1,1000));
+        itens.add(new ItemVenda(3,50,1,1500));
+
+        RegraValidacao regra = new ValidacaoHorarioComercial();
+        Assertions.assertThrows(SistVendasException.class, ()->{
+            regra.valida(produtos,estoque,itens);
+        });
+    }
+
+    @Test
+    public void validaFaltandoItemEstoque() {
+        Produtos produtos = mock(Produtos.class);
+        when(produtos.recupera(10)).thenReturn(new Produto(10,"Prod10",1000.0));
+        when(produtos.recupera(30)).thenReturn(new Produto(30,"Prod30",1000.0));
+        when(produtos.recupera(50)).thenReturn(new Produto(50,"Prod15",1500.0));
+
+        Estoque estoque = mock(Estoque.class);
+        when(estoque.recupera(10)).thenReturn(new ItemEstoque(10,5));
+        when(estoque.recupera(30)).thenReturn(new ItemEstoque(30,3));
+        when(estoque.recupera(50)).thenReturn(new ItemEstoque(50,1));
+
+        List<ItemVenda> itens = new ArrayList<>(3);
+        itens.add(new ItemVenda(1,10,1,1000));
+        itens.add(new ItemVenda(2,30,1,1000));
+        itens.add(new ItemVenda(3,50,2,1500));
+
+        RegraValidacao regra = new ValidacaoHorarioComercial();
+        Assertions.assertThrows(SistVendasException.class, ()->{
+            regra.valida(produtos,estoque,itens);
+        });
     }
 }
