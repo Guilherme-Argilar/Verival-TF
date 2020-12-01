@@ -8,6 +8,9 @@
 
     <properties>
         <java.version>14</java.version>
+        <sonar.projectKey>Guilherme-Argilar_Verival-TF</sonar.projectKey>
+        <sonar.organization>guilherme-argilar</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <dependencies>
